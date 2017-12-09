@@ -1,0 +1,7 @@
+build
+*.old
+*.orig
+*.o
+*.elf
+*.d
+sdkconfig
