@@ -1,0 +1,20 @@
+#ifndef TEST_H
+#define TEST_H 1
+#include "all.h"
+#include "test-argvalue-obj.h"
+#include "test-defaultsym-obj.h"
+#include "test-loops1-obj.h"
+#include "test-loops2-obj.h"
+#include "test-nop-obj.h"
+#include "test-printf-longcall-obj.h"
+#include "test-printf-multiplefuncs-obj.h"
+#include "test-printf-multiplestrings-obj.h"
+#include "test-printf-O3-obj.h"
+#include "test-printf-Os-obj.h"
+#include "test-printf-sections-obj.h"
+#include "test-printf-shortcall-obj.h"
+#include "test-printf-stripped-obj.h"
+#include "test-return-bss-obj.h"
+#include "test-return-rwdata-obj.h"
+#include "test-returnvalue-obj.h"
+#endif

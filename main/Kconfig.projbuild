@@ -1,0 +1,21 @@
+menu "Custom ESP32 configuration"
+
+config WIFI_SSID
+    string "WiFi SSID"
+    default "myssid"
+    help
+        SSID (network name) to connect to.
+
+config WIFI_PASSWORD
+    string "WiFi Password"
+    default "mypass"
+    help
+        WiFi password (WPA or WPA2) to use.
+
+config URL
+    string "Elf module url"
+    default "http://192.168.3.101:8080/module.elf"
+    help
+        Elf module url to download.
+	
+endmenu
