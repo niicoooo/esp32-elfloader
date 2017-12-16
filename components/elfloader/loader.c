@@ -15,13 +15,13 @@
  * GNU General Public License for more details.
  *
  */
- 
- /*
-  * Based on the work of the elf-loader project
-  * https://github.com/embedded2014/elf-loader
-  * Copyright (C) 2013 Martin Ribelotta (martinribelott@gmail.com) Licensed under GNU GPL v2 or later
-  * Modified by Jim Huang (jserv.tw@gmail.com)
-  */
+
+/*
+ * Based on the work of the elf-loader project
+ * https://github.com/embedded2014/elf-loader
+ * Copyright (C) 2013 Martin Ribelotta (martinribelott@gmail.com) Licensed under GNU GPL v2 or later
+ * Modified by Jim Huang (jserv.tw@gmail.com)
+ */
 
 
 #include <assert.h>
@@ -188,8 +188,8 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
         uint32_t v = unalignedGet32((void*)relAddr);
         *from = v;
 
-	/* *** Format: L32R *** */
-        if ((v & 0x00000F) == 0x000001) { 
+        /* *** Format: L32R *** */
+        if ((v & 0x00000F) == 0x000001) {
             int32_t delta =  symAddr - ((relAddr + 3) & 0xfffffffc);
             if (delta & 0x0000003) {
                 ERR("Relocation: L32R error");
@@ -199,12 +199,12 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
             unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&delta)[0]);
             unalignedSet8((void*)(relAddr + 2), ((uint8_t*)&delta)[1]);
             *to = unalignedGet32((void*)relAddr);
-        break;
-        } 
-	
-	/* *** Format: CALL *** */
-	/* *** CALL0, CALL4, CALL8, CALL12, J *** */
-	if ((v & 0x00000F) == 0x000005) {
+            break;
+        }
+
+        /* *** Format: CALL *** */
+        /* *** CALL0, CALL4, CALL8, CALL12, J *** */
+        if ((v & 0x00000F) == 0x000005) {
             int32_t delta =  symAddr - ((relAddr + 4) & 0xfffffffc);
             if (delta & 0x0000003) {
                 ERR("Relocation: CALL error");
@@ -217,11 +217,11 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
             unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&delta)[1]);
             unalignedSet8((void*)(relAddr + 2), ((uint8_t*)&delta)[2]);
             *to = unalignedGet32((void*)relAddr);
-        break;
-    }
+            break;
+        }
 
-	/* *** J *** */
-	if ((v & 0x00003F) == 0x000006) {
+        /* *** J *** */
+        if ((v & 0x00003F) == 0x000006) {
             int32_t delta =  symAddr - (relAddr + 4);
             delta =  delta << 6;
             delta |= unalignedGet8((void*)(relAddr + 0));
@@ -229,21 +229,21 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
             unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&delta)[1]);
             unalignedSet8((void*)(relAddr + 2), ((uint8_t*)&delta)[2]);
             *to = unalignedGet32((void*)relAddr);
-        break;
-    }
-	        
-	/* *** Format: BRI8  *** */
-	/* *** BALL, BANY, BBC, BBCI, BBCI.L, BBS,  BBSI, BBSI.L, BEQ, BGE,  BGEU, BLT, BLTU, BNALL, BNE,  BNONE, LOOP,  *** */
-    	/* *** BEQI, BF, BGEI, BGEUI, BLTI, BLTUI, BNEI,  BT, LOOPGTZ, LOOPNEZ *** */
+            break;
+        }
+
+        /* *** Format: BRI8  *** */
+        /* *** BALL, BANY, BBC, BBCI, BBCI.L, BBS,  BBSI, BBSI.L, BEQ, BGE,  BGEU, BLT, BLTU, BNALL, BNE,  BNONE, LOOP,  *** */
+        /* *** BEQI, BF, BGEI, BGEUI, BLTI, BLTUI, BNEI,  BT, LOOPGTZ, LOOPNEZ *** */
         if (((v & 0x00000F) == 0x000007) || ((v & 0x00003F) == 0x000026) ||  ((v & 0x00003F) == 0x000036 && (v & 0x0000FF) != 0x000036)) {
             int32_t delta =  symAddr - (relAddr + 4);
             unalignedSet8((void*)(relAddr + 2), ((uint8_t*)&delta)[0]);
             *to = unalignedGet32((void*)relAddr);
-        break;
-	}
-	
-    	/* *** Format: BRI12 *** */
-    	/* *** BEQZ, BGEZ, BLTZ, BNEZ *** */
+            break;
+        }
+
+        /* *** Format: BRI12 *** */
+        /* *** BEQZ, BGEZ, BLTZ, BNEZ *** */
         if ((v & 0x00003F) == 0x000016) {
             int32_t delta =  symAddr - (relAddr + 4);
             delta =  delta << 2;
@@ -251,23 +251,23 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
             unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&delta)[0]);
             unalignedSet8((void*)(relAddr + 2), ((uint8_t*)&delta)[1]);
             *to = unalignedGet32((void*)relAddr);
-        break;
-	}
-	
-    	/* *** Format: RI6  *** */
-    	/* *** BEQZ.N, BNEZ.N *** */
-       if ((v & 0x008F) == 0x008C) {
+            break;
+        }
+
+        /* *** Format: RI6  *** */
+        /* *** BEQZ.N, BNEZ.N *** */
+        if ((v & 0x008F) == 0x008C) {
             int32_t delta =  symAddr - (relAddr + 4);
             int32_t d1 = (delta << 4) & 0x03;
             int32_t d2 = (delta << 2) & 0xf0;
             unalignedSet8((void*)(relAddr + 0), ((uint8_t*)&d1)[0]);
             unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&d2)[0]);
             *to = unalignedGet32((void*)relAddr);
-        break;
+            break;
         }
-	
-            ERR("Relocation: unknown opcode %08X", v);
-            return -1;
+
+        ERR("Relocation: unknown opcode %08X", v);
+        return -1;
         break;
     }
     case R_XTENSA_ASM_EXPAND: {
@@ -277,7 +277,7 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
     }
     default:
         MSG("Relocation: undefined relocation %d %s", type, type2String(type));
-    assert(0);
+        assert(0);
         return -1;
     }
     return 0;

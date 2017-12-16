@@ -15,12 +15,16 @@ Example:
 ```c
 #include "loader.h"
 
+
+char* data = ... Elf module ...
+
 static const ELFLoaderSymbol_t exports[] = {
     { "puts", (void*) puts },
     { "memcpy", (void*) memcpy },
     { "memmove", (void*) memmove },
     { "strcmp", (void*) strcmp },
     { "strtol", (void*) strtol },
+    ...
 };
 static const ELFLoaderEnv_t env = { exports, sizeof(exports) / sizeof(*exports) };
 
@@ -35,10 +39,19 @@ if (elfLoaderSetFunc(ctx, "local_main") != 0) {
     elfLoaderFree(ctx);
     return -1;
 }
-ESP_LOGI(TAG, "elfLoaderSetFunc error: local_main function not found");
 ESP_LOGI(TAG, "Running local_main(0x10) function as int local_main(int arg)");
 int r = elfLoaderRun(ctx, 0x10);
 ESP_LOGI(TAG, "Result: %i", r);
 elfLoaderFree(ctx);
 return 0;
+```
+
+or
+
+```bash
+$ make && make flash && make monitor
+esp32> run 4
+Running: test_printf_longcall_elf(0x10)
+Hello world!
+Result: 0x0
 ```
