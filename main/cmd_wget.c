@@ -121,6 +121,7 @@ static int cmd_wget(int argc, char** argv) {
         printf("Running module\n");
 
         ELFLoaderContext_t* ctx = elfLoaderInitLoadAndRelocate(data, &env);
+        free(data);
         if (!ctx) {
             return -1;
         }
@@ -128,6 +129,7 @@ static int cmd_wget(int argc, char** argv) {
             elfLoaderFree(ctx);
             return -1;
         }
+        printf("Text addr: 0x%08X\n", (unsigned int) elfLoaderGetTextAddr(ctx));
         elfLoaderRun(ctx, 0x10);
 // elfLoaderFree(ctx);
     }

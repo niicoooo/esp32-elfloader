@@ -101,6 +101,7 @@ typedef struct ELFLoaderSection_t {
 struct ELFLoaderContext_t {
     LOADER_FD_T fd;
     void* exec;
+    void* text;
     const ELFLoaderEnv_t *env;
 
     size_t e_shnum;
@@ -239,6 +240,10 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
             int32_t delta =  symAddr - (relAddr + 4);
             unalignedSet8((void*)(relAddr + 2), ((uint8_t*)&delta)[0]);
             *to = unalignedGet32((void*)relAddr);
+            if ((delta < - (1 << 7)) || (delta >= (1 << 7))) {
+                ERR("Relocation: BRI8 out of range");
+                return -1;
+            }
             break;
         }
 
@@ -246,11 +251,16 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
         /* *** BEQZ, BGEZ, BLTZ, BNEZ *** */
         if ((v & 0x00003F) == 0x000016) {
             int32_t delta =  symAddr - (relAddr + 4);
-            delta =  delta << 2;
+            delta =  delta << 4;
             delta |=  unalignedGet32((void*)(relAddr + 1));
             unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&delta)[0]);
             unalignedSet8((void*)(relAddr + 2), ((uint8_t*)&delta)[1]);
             *to = unalignedGet32((void*)relAddr);
+            delta =  symAddr - (relAddr + 4);
+            if ((delta < - (1 << 11)) || (delta >= (1 << 11))) {
+                ERR("Relocation: BRI12 out of range");
+                return -1;
+            }
             break;
         }
 
@@ -258,11 +268,17 @@ static int relocateSymbol(Elf32_Addr relAddr, int type, Elf32_Addr symAddr, Elf3
         /* *** BEQZ.N, BNEZ.N *** */
         if ((v & 0x008F) == 0x008C) {
             int32_t delta =  symAddr - (relAddr + 4);
-            int32_t d1 = (delta << 4) & 0x03;
-            int32_t d2 = (delta << 2) & 0xf0;
-            unalignedSet8((void*)(relAddr + 0), ((uint8_t*)&d1)[0]);
-            unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&d2)[0]);
+            int32_t d2 = delta & 0x30;
+            int32_t d1 = (delta << 4) & 0xf0;
+            d2 |=  unalignedGet32((void*)(relAddr + 0));
+            d1 |=  unalignedGet32((void*)(relAddr + 1));
+            unalignedSet8((void*)(relAddr + 0), ((uint8_t*)&d2)[0]);
+            unalignedSet8((void*)(relAddr + 1), ((uint8_t*)&d1)[0]);
             *to = unalignedGet32((void*)relAddr);
+            if ((delta < 0) || (delta > 0x111111)) {
+                ERR("Relocation: RI6 out of range");
+                return -1;
+            }
             break;
         }
 
@@ -340,8 +356,12 @@ static int relocateSection(ELFLoaderContext_t *ctx, ELFLoaderSection_t *s) {
         uint32_t from, to;
         if (relType == R_XTENSA_NONE || relType == R_XTENSA_ASM_EXPAND) {
 //            MSG("  %08X %04X %04X %-20s %08X          %08X                    %s + %X", rel.r_offset, symEntry, relType, type2String(relType), relAddr, sym.st_value, name, rel.r_addend);
-        } else if (relocateSymbol(relAddr, relType, symAddr, sym.st_value, &from, &to) != 0) {
+        } else if ((symAddr == 0xffffffff) && (sym.st_value == 0x00000000)) {
+            ERR("Relocation - undefined symAddr: %s", name);
             MSG("  %08X %04X %04X %-20s %08X %08X %08X                    %s + %X", rel.r_offset, symEntry, relType, type2String(relType), relAddr, symAddr, sym.st_value, name, rel.r_addend);
+            r = -1;
+        } else if(relocateSymbol(relAddr, relType, symAddr, sym.st_value, &from, &to) != 0) {
+            ERR("  %08X %04X %04X %-20s %08X %08X %08X %08X->%08X %s + %X", rel.r_offset, symEntry, relType, type2String(relType), relAddr, symAddr, sym.st_value, from, to, name, rel.r_addend);
             r = -1;
         } else {
             MSG("  %08X %04X %04X %-20s %08X %08X %08X %08X->%08X %s + %X", rel.r_offset, symEntry, relType, type2String(relType), relAddr, symAddr, sym.st_value, from, to, name, rel.r_addend);
@@ -443,6 +463,9 @@ ELFLoaderContext_t* elfLoaderInitLoadAndRelocate(LOADER_FD_T fd, const ELFLoader
                     section->size = sectHdr.sh_size;
                     if (sectHdr.sh_type != SHT_NOBITS) {
                         LOADER_GETDATA(ctx, sectHdr.sh_offset, section->data, sectHdr.sh_size);
+                    }
+                    if (strcmp(name, ".text") == 0) {
+                        ctx->text = section->data;
                     }
                     MSG("  section %2d: %-15s %08X %6i", n, name, (unsigned int) section->data, sectHdr.sh_size);
                 }
@@ -549,4 +572,8 @@ int elfLoader(LOADER_FD_T fd, const ELFLoaderEnv_t *env, char* funcname, int arg
     int r = elfLoaderRun(ctx, arg);
     elfLoaderFree(ctx);
     return r;
+}
+
+void* elfLoaderGetTextAddr(ELFLoaderContext_t *ctx) {
+    return ctx->text;
 }
