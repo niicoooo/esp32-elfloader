@@ -86,7 +86,7 @@ static const char* TAG = "elfLoader";
 #define LOADER_ALLOC_DATA(size) heap_caps_malloc(size, MALLOC_CAP_8BIT)
 
 #define LOADER_GETDATA(ctx, off, buffer, size) \
-	unalignedCpy(buffer, ctx->fd + off, size);
+    unalignedCpy(buffer, ctx->fd + off, size);
 
 #endif
 
@@ -353,7 +353,8 @@ static int relocateSection(ELFLoaderContext_t *ctx, ELFLoaderSection_t *s) {
         Elf32_Addr relAddr = ((Elf32_Addr) s->data) + rel.r_offset;		// data to be updated adress
         readSymbol(ctx, symEntry, &sym, name, sizeof(name));
         Elf32_Addr symAddr = findSymAddr(ctx, &sym, name) + rel.r_addend;								// target symbol adress
-        uint32_t from, to;
+        uint32_t from = 0;
+        uint32_t to = 0;
         if (relType == R_XTENSA_NONE || relType == R_XTENSA_ASM_EXPAND) {
 //            MSG("  %08X %04X %04X %-20s %08X          %08X                    %s + %X", rel.r_offset, symEntry, relType, type2String(relType), relAddr, sym.st_value, name, rel.r_addend);
         } else if ((symAddr == 0xffffffff) && (sym.st_value == 0x00000000)) {
