@@ -1,0 +1,7 @@
+#include <stdint.h>
+#include <stdint.h>
+
+
+intptr_t other_func(intptr_t arg) {
+    return 0;
+}

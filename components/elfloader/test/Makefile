@@ -29,6 +29,16 @@ payload-build/test-printf-stripped.o: payload-src/test-printf-stripped.c payload
 	xtensa-esp32-elf-gcc -Wl,-r -nostartfiles -nodefaultlibs -nostdlib -g -Wl,-Tesp32.ld -o $@ $< 
 	xtensa-esp32-elf-strip --strip-unneeded $@
 
+payload-build/test-return-bss-two.elf: payload-build/test-return-bss-two.o payload-build/test-return-bss-two-misc.o
+	xtensa-esp32-elf-gcc -Wl,-r -nostartfiles -nodefaultlibs -nostdlib -g -Wl,-Tesp32.ld -o $@ $^
+
+payload-build/test-return-bss-extern.elf: payload-build/test-return-bss-extern.o payload-build/test-return-bss-extern-misc.o
+	xtensa-esp32-elf-gcc -Wl,-r -nostartfiles -nodefaultlibs -nostdlib -g -Wl,-Tesp32.ld -o $@ $^
+
+payload-build/test-return-rwdata-extern.elf: payload-build/test-return-rwdata-extern.o payload-build/test-return-rwdata-extern-misc.o
+	xtensa-esp32-elf-gcc -Wl,-r -nostartfiles -nodefaultlibs -nostdlib -g -Wl,-Tesp32.ld -o $@ $^
+
+
 CCFLAG_test_printf_gdb = -ggdb
 CCFLAG_test_printf_O3 = -O3
 CCFLAG_test_printf_Os = -Os
@@ -38,8 +48,11 @@ ARGOUT_test_argvalue = 0x12
 ARGOUT_test_loops1 = 10
 ARGOUT_test_loops2 = 0
 ARGOUT_test_return_bss = 0x12345678
+ARGOUT_test_return_bss_two = 0x12345678
+ARGOUT_test_return_bss_extern = 0x12345678
 ARGOUT_test_return_bss_volatile = 0x12345678
 ARGOUT_test_return_rwdata = 0x12345678
+ARGOUT_test_return_rwdata_extern = 0x12345678
 ARGOUT_test_return_rwdata_volatile = 0x12345678
 ARGOUT_test_return_value = 0x12345678
 
@@ -48,6 +61,8 @@ ARGOUT_test_return_value = 0x12345678
 
 ########
 
+payload-build/%.o: payload-src/%.c.misc payload-build
+	xtensa-esp32-elf-gcc -fno-common -mlongcalls -Wall -Werror $(CCFLAG_$(subst -,_,$(patsubst payload-src/%.c,%,$<))) -o $@ -c -x c $<
 
 payload-build/%.o: payload-src/%.c payload-build
 	xtensa-esp32-elf-gcc -fno-common -mlongcalls -Wall -Werror $(CCFLAG_$(subst -,_,$(patsubst payload-src/%.c,%,$<))) -o $@ -c $<

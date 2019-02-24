@@ -1,0 +1,9 @@
+#include <stdint.h>
+#include <stdint.h>
+
+
+uint32_t data = 0x12345678;
+
+intptr_t other_func(intptr_t arg) {
+    return 0;
+}
