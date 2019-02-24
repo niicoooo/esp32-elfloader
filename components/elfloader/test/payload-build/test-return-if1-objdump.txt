@@ -1,0 +1,103 @@
+
+payload-build/test-return-if1.elf:     file format elf32-xtensa-le
+payload-build/test-return-if1.elf
+architecture: xtensa, flags 0x00000011:
+HAS_RELOC, HAS_SYMS
+start address 0x00000000
+
+Xtensa header:
+
+Machine     = Base
+Insn tables = true
+Literal tables = true
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .literal      00000008  00000000  00000000  00000034  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .text         00000024  00000000  00000000  0000003c  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  2 .data         00000000  00000000  00000000  00000060  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .bss          00000004  00000000  00000000  00000060  2**2
+                  ALLOC
+  4 .comment      0000003b  00000000  00000000  00000060  2**0
+                  CONTENTS, READONLY
+  5 .xtensa.info  00000038  00000000  00000000  0000009b  2**0
+                  CONTENTS, READONLY
+  6 .xt.lit       00000008  00000000  00000000  000000d3  2**0
+                  CONTENTS, RELOC, READONLY
+  7 .xt.prop      00000048  00000000  00000000  000000db  2**0
+                  CONTENTS, RELOC, READONLY
+SYMBOL TABLE:
+00000000 l    d  .literal	00000000 .literal
+00000000 l    d  .text	00000000 .text
+00000000 l    d  .data	00000000 .data
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .xtensa.info	00000000 .xtensa.info
+00000000 l    d  .xt.lit	00000000 .xt.lit
+00000000 l    d  .xt.prop	00000000 .xt.prop
+00000000 l    df *ABS*	00000000 test-return-if1.c
+00000000 g     F .text	00000024 local_main
+00000000 g     O .bss	00000004 data
+
+
+Contents of section .literal:
+ 0000 00000000 78563412                    ....xV4.        
+Contents of section .text:
+ 0000 3661007d 01290728 07cc8221 00000c03  6a.}.).(...!....
+ 0010 3902c601 00210000 31000039 02210000  9....!..1..9.!..
+ 0020 28021df0                             (...            
+Contents of section .comment:
+ 0000 00474343 3a202863 726f7373 746f6f6c  .GCC: (crosstool
+ 0010 2d4e4720 63726f73 73746f6f 6c2d6e67  -NG crosstool-ng
+ 0020 2d312e32 322e302d 36312d67 61623833  -1.22.0-61-gab83
+ 0030 37356129 20352e32 2e3000             75a) 5.2.0.     
+Contents of section .xtensa.info:
+ 0000 0c000000 20000000 01000000 5874656e  .... .......Xten
+ 0010 73615f49 6e666f00 5553455f 4142534f  sa_Info.USE_ABSO
+ 0020 4c555445 5f4c4954 4552414c 533d300a  LUTE_LITERALS=0.
+ 0030 4142493d 300a0000                    ABI=0...        
+Contents of section .xt.lit:
+ 0000 00000000 08000000                    ........        
+Contents of section .xt.prop:
+ 0000 00000000 08000000 01000000 00000000  ................
+ 0010 00000000 04280000 00000000 15000000  .....(..........
+ 0020 02000000 15000000 00000000 08000000  ................
+ 0030 15000000 0f000000 22000000 24000000  ........"...$...
+ 0040 00000000 08000000                    ........        
+
+Disassembly of section .literal:
+
+00000000 <.literal>:
+   0:	000000        	ill
+			0: R_XTENSA_32	data
+   3:	567800        	lsi	f0, a8, 0x158
+   6:	34          	.byte 0x34
+   7:	12          	.byte 0x12
+
+Disassembly of section .text:
+
+00000000 <local_main>:
+   0:	006136        	entry	a1, 48
+   3:	017d      	mov.n	a7, a1
+   5:	0729      	s32i.n	a2, a7, 0
+   7:	0728      	l32i.n	a2, a7, 0
+   9:	82cc      	bnez.n	a2, 15 <local_main+0x15>
+			9: R_XTENSA_SLOT0_OP	.text+0x15
+   b:	000021        	l32r	a2, fffc000c <local_main+0xfffc000c>
+			b: R_XTENSA_SLOT0_OP	.literal
+   e:	030c      	movi.n	a3, 0
+  10:	0239      	s32i.n	a3, a2, 0
+  12:	0001c6        	j	1d <local_main+0x1d>
+			12: R_XTENSA_SLOT0_OP	.text+0x1d
+  15:	000021        	l32r	a2, fffc0018 <local_main+0xfffc0018>
+			15: R_XTENSA_SLOT0_OP	.literal
+  18:	000031        	l32r	a3, fffc0018 <local_main+0xfffc0018>
+			18: R_XTENSA_SLOT0_OP	.literal+0x4
+  1b:	0239      	s32i.n	a3, a2, 0
+  1d:	000021        	l32r	a2, fffc0020 <local_main+0xfffc0020>
+			1d: R_XTENSA_SLOT0_OP	.literal
+  20:	0228      	l32i.n	a2, a2, 0
+  22:	f01d      	retw.n
