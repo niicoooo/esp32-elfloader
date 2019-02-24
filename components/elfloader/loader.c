@@ -517,7 +517,7 @@ err:
 }
 
 
-int elfLoaderSetFunc(ELFLoaderContext_t *ctx, char* funcname) {
+int elfLoaderSetFunc(ELFLoaderContext_t *ctx, const char* funcname) {
     ctx->exec = 0;
     MSG("Scanning ELF symbols");
     MSG("  Sym  Symbol                         sect value    size relAddr");
@@ -548,7 +548,7 @@ int elfLoaderSetFunc(ELFLoaderContext_t *ctx, char* funcname) {
 }
 
 
-int elfLoaderRun(ELFLoaderContext_t *ctx, int arg) {
+intptr_t elfLoaderRun(ELFLoaderContext_t *ctx, intptr_t arg) {
     if (!ctx->exec) {
         return 0;
     }
