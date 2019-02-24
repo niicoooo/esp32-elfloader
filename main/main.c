@@ -27,7 +27,6 @@ static esp_err_t event_handler(void *ctx, system_event_t *event) {
 
 static const char* TAG = "main";
 void register_system();
-void register_loader();
 void register_wget();
 
 
@@ -57,7 +56,6 @@ void app_main(void) {
 
     esp_console_register_help_command();
     register_system();
-    register_loader();
     register_wget();
     ESP_LOGI(TAG, "Console configuration done");
 

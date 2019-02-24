@@ -8,7 +8,6 @@
 #include "esp_event_loop.h"
 #include "esp_system.h"
 #include "esp_wifi.h"
-#include "mdns.h"
 #include "mongoose.h"
 
 #include "freertos/event_groups.h"
@@ -18,7 +17,6 @@
 
 
 static int initdone = 0;
-static mdns_server_t * mdns = NULL;
 struct mg_mgr mgr;
 static int exit_flag;
 static void* data;
@@ -99,9 +97,6 @@ static int cmd_wget(int argc, char** argv) {
         ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_STA) );
         ESP_ERROR_CHECK( esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config) );
         ESP_ERROR_CHECK( esp_wifi_connect() );
-        ESP_ERROR_CHECK( mdns_init(TCPIP_ADAPTER_IF_STA, &mdns) );
-        mdns_set_hostname(mdns, "esp32");
-        mdns_set_instance(mdns, "ESP32 module");
         ESP_LOGI(TAG, "Wifi started!");
         initdone = 1;
     }
