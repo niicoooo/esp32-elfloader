@@ -1,0 +1,122 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           Tensilica Xtensa Processor
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          1388 (bytes into file)
+  Flags:                             0x300
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         17
+  Section header string table index: 14
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .literal          PROGBITS        00000000 000034 000014 00  AX  0   0  4
+  [ 2] .rela.literal     RELA            00000000 0003c8 000060 0c   I 15   1  4
+  [ 3] .text             PROGBITS        00000000 000048 00005e 00  AX  0   0  4
+  [ 4] .rela.text        RELA            00000000 000428 000090 0c   I 15   3  4
+  [ 5] .rodata           PROGBITS        00000000 0000a8 000031 00   A  0   0  4
+  [ 6] .data             PROGBITS        00000000 0000d9 000000 00  WA  0   0  1
+  [ 7] .bss              NOBITS          00000000 0000d9 000000 00  WA  0   0  1
+  [ 8] .comment          PROGBITS        00000000 0000d9 00003b 01  MS  0   0  1
+  [ 9] .xtensa.info      NOTE            00000000 000114 000038 00      0   0  1
+  [10] .xt.lit           PROGBITS        00000000 00014c 000008 00      0   0  1
+  [11] .rela.xt.lit      RELA            00000000 0004b8 00000c 0c   I 15  10  4
+  [12] .xt.prop          PROGBITS        00000000 000154 0000a8 00      0   0  1
+  [13] .rela.xt.prop     RELA            00000000 0004c4 0000a8 0c   I 15  12  4
+  [14] .shstrtab         STRTAB          00000000 0001fc 000078 00      0   0  1
+  [15] .symtab           SYMTAB          00000000 000274 000100 10     16  11  4
+  [16] .strtab           STRTAB          00000000 000374 000051 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings)
+  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+
+There are no section groups in this file.
+
+There are no program headers in this file.
+
+Relocation section '.rela.literal' at offset 0x3c8 contains 8 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name + Addend
+00000000  00000301 R_XTENSA_32       00000000   .rodata + 0
+00000004  00000b01 R_XTENSA_32       00000000   puts + 0
+00000008  00000301 R_XTENSA_32       00000000   .rodata + 0
+0000000c  00000000 R_XTENSA_NONE                0
+0000000c  00000301 R_XTENSA_32       00000000   .rodata + 0
+00000010  00000000 R_XTENSA_NONE                0
+00000010  00000301 R_XTENSA_32       00000000   .rodata + 0
+00000014  00000000 R_XTENSA_NONE                0
+
+Relocation section '.rela.text' at offset 0x428 contains 12 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name + Addend
+00000007  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + 0
+0000000c  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + 4
+0000000c  00000b0b R_XTENSA_ASM_EXPA 00000000   puts + 0
+0000001f  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + 8
+00000024  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + 4
+00000024  00000b0b R_XTENSA_ASM_EXPA 00000000   puts + 0
+00000037  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + c
+0000003c  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + 4
+0000003c  00000b0b R_XTENSA_ASM_EXPA 00000000   puts + 0
+0000004f  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + 10
+00000054  00000114 R_XTENSA_SLOT0_OP 00000000   .literal + 4
+00000054  00000b0b R_XTENSA_ASM_EXPA 00000000   puts + 0
+
+Relocation section '.rela.xt.lit' at offset 0x4b8 contains 1 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name + Addend
+00000000  00000101 R_XTENSA_32       00000000   .literal + 0
+
+Relocation section '.rela.xt.prop' at offset 0x4c4 contains 14 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name + Addend
+00000000  00000101 R_XTENSA_32       00000000   .literal + 0
+0000000c  00000201 R_XTENSA_32       00000000   .text + 0
+00000018  00000201 R_XTENSA_32       00000000   .text + 0
+00000024  00000201 R_XTENSA_32       00000000   .text + 0
+00000030  00000201 R_XTENSA_32       00000000   .text + 0
+0000003c  00000201 R_XTENSA_32       00000000   .text + 0
+00000048  00000201 R_XTENSA_32       00000000   .text + 0
+00000054  00000201 R_XTENSA_32       00000000   .text + 0
+00000060  00000201 R_XTENSA_32       00000000   .text + 0
+0000006c  00000201 R_XTENSA_32       00000000   .text + 0
+00000078  00000301 R_XTENSA_32       00000000   .rodata + 0
+00000084  00000301 R_XTENSA_32       00000000   .rodata + 0
+00000090  00000301 R_XTENSA_32       00000000   .rodata + 0
+0000009c  00000301 R_XTENSA_32       00000000   .rodata + 0
+
+The decoding of unwind sections for machine type Tensilica Xtensa Processor is not currently supported.
+
+Symbol table '.symtab' contains 16 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000     0 SECTION LOCAL  DEFAULT    1 
+     2: 00000000     0 SECTION LOCAL  DEFAULT    3 
+     3: 00000000     0 SECTION LOCAL  DEFAULT    5 
+     4: 00000000     0 SECTION LOCAL  DEFAULT    6 
+     5: 00000000     0 SECTION LOCAL  DEFAULT    7 
+     6: 00000000     0 SECTION LOCAL  DEFAULT    8 
+     7: 00000000     0 SECTION LOCAL  DEFAULT    9 
+     8: 00000000     0 SECTION LOCAL  DEFAULT   10 
+     9: 00000000     0 SECTION LOCAL  DEFAULT   12 
+    10: 00000000     0 FILE    LOCAL  DEFAULT  ABS test-printf-multiplefuncs
+    11: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND puts
+    12: 00000018    22 FUNC    GLOBAL DEFAULT    3 local_main2
+    13: 00000048    22 FUNC    GLOBAL DEFAULT    3 local_main
+    14: 00000030    22 FUNC    GLOBAL DEFAULT    3 local_main3
+    15: 00000000    22 FUNC    GLOBAL DEFAULT    3 local_main1
+
+No version information found in this file.
+
+Displaying notes found at file offset 0x00000114 with length 0x00000038:
+  Owner                 Data size	Description
+  Xtensa_Info          0x00000020	NT_VERSION (version)

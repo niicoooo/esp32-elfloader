@@ -1,0 +1,188 @@
+
+payload-build/test-printf-gdb.elf:     file format elf32-xtensa-le
+payload-build/test-printf-gdb.elf
+architecture: xtensa, flags 0x00000011:
+HAS_RELOC, HAS_SYMS
+start address 0x00000000
+
+Xtensa header:
+
+Machine     = Base
+Insn tables = true
+Literal tables = true
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .literal      00000008  00000000  00000000  00000034  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .text         00000016  00000000  00000000  0000003c  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  2 .rodata       0000000d  00000000  00000000  00000054  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .data         00000000  00000000  00000000  00000061  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .bss          00000000  00000000  00000000  00000061  2**0
+                  ALLOC
+  5 .debug_frame  00000028  00000000  00000000  00000064  2**2
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+  6 .debug_info   000000bb  00000000  00000000  0000008c  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+  7 .debug_abbrev 00000060  00000000  00000000  00000147  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_aranges 00000020  00000000  00000000  000001a7  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+  9 .debug_line   0000011e  00000000  00000000  000001c7  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+ 10 .debug_str    00000155  00000000  00000000  000002e5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .comment      0000003b  00000000  00000000  0000043a  2**0
+                  CONTENTS, READONLY
+ 12 .xtensa.info  00000038  00000000  00000000  00000475  2**0
+                  CONTENTS, READONLY
+ 13 .xt.lit       00000008  00000000  00000000  000004ad  2**0
+                  CONTENTS, RELOC, READONLY
+ 14 .xt.prop      0000003c  00000000  00000000  000004b5  2**0
+                  CONTENTS, RELOC, READONLY
+SYMBOL TABLE:
+00000000 l    d  .literal	00000000 .literal
+00000000 l    d  .text	00000000 .text
+00000000 l    d  .rodata	00000000 .rodata
+00000000 l    d  .data	00000000 .data
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .xtensa.info	00000000 .xtensa.info
+00000000 l    d  .xt.lit	00000000 .xt.lit
+00000000 l    d  .xt.prop	00000000 .xt.prop
+00000000 l    df *ABS*	00000000 test-printf-gdb.c
+00000000         *UND*	00000000 puts
+00000000 g     F .text	00000016 local_main
+
+
+Contents of section .literal:
+ 0000 00000000 00000000                    ........        
+Contents of section .text:
+ 0000 3661007d 01290721 0000ad02 810000e0  6a.}.).!........
+ 0010 08000c02 1df0                        ......          
+Contents of section .rodata:
+ 0000 48656c6c 6f20776f 726c6421 00        Hello world!.   
+Contents of section .debug_frame:
+ 0000 0c000000 ffffffff 0300017c 000c0100  ...........|....
+ 0010 14000000 00000000 00000000 16000000  ................
+ 0020 04050000 000c0730                    .......0        
+Contents of section .debug_info:
+ 0000 b7000000 04000000 00000401 1b000000  ................
+ 0010 0c0f0100 00800000 00000000 00160000  ................
+ 0020 00000000 00020106 03010000 020108ce  ................
+ 0030 00000002 02054201 00000202 07f00000  ......B.........
+ 0040 00030405 696e7400 0204070e 00000002  ....int.........
+ 0050 08050000 00000208 07590000 0004dc00  .........Y......
+ 0060 00000231 41000000 02080436 01000002  ...1A......6....
+ 0070 0405e700 00000204 074c0100 00020407  .........L......
+ 0080 47000000 0201087b 00000004 2d010000  G......{....-...
+ 0090 03a95d00 00000570 00000001 058b0000  ..]....p........
+ 00a0 00000000 00160000 00019c06 61726700  ............arg.
+ 00b0 01058b00 00000291 500000             ........P..     
+Contents of section .debug_abbrev:
+ 0000 01110125 0e130b03 0e1b0e11 01120610  ...%............
+ 0010 17000002 24000b0b 3e0b030e 00000324  ....$...>......$
+ 0020 000b0b3e 0b030800 00041600 030e3a0b  ...>..........:.
+ 0030 3b0b4913 0000052e 013f1903 0e3a0b3b  ;.I......?...:.;
+ 0040 0b271949 13110112 06401896 42190000  .'.I.....@..B...
+ 0050 06050003 083a0b3b 0b491302 18000000  .....:.;.I......
+Contents of section .debug_aranges:
+ 0000 1c000000 02000000 00000400 00000000  ................
+ 0010 00000000 16000000 00000000 00000000  ................
+Contents of section .debug_line:
+ 0000 1a010000 0200f400 00000101 fb0e0d00  ................
+ 0010 01010101 00000001 00000170 61796c6f  ...........paylo
+ 0020 61642d73 7263002f 6d6e742f 64617461  ad-src./mnt/data
+ 0030 332f6d79 73796e63 7468696e 672f6465  3/mysyncthing/de
+ 0040 762f6465 76656e76 2f787465 6e73612d  v/devenv/xtensa-
+ 0050 65737033 322d656c 662f7874 656e7361  esp32-elf/xtensa
+ 0060 2d657370 33322d65 6c662f69 6e636c75  -esp32-elf/inclu
+ 0070 64652f6d 61636869 6e65002f 6d6e742f  de/machine./mnt/
+ 0080 64617461 332f6d79 73796e63 7468696e  data3/mysyncthin
+ 0090 672f6465 762f6465 76656e76 2f787465  g/dev/devenv/xte
+ 00a0 6e73612d 65737033 322d656c 662f7874  nsa-esp32-elf/xt
+ 00b0 656e7361 2d657370 33322d65 6c662f69  ensa-esp32-elf/i
+ 00c0 6e636c75 64650000 74657374 2d707269  nclude..test-pri
+ 00d0 6e74662d 6764622e 63000100 005f6465  ntf-gdb.c...._de
+ 00e0 6661756c 745f7479 7065732e 68000200  fault_types.h...
+ 00f0 00737464 696e742e 68000300 00000005  .stdint.h.......
+ 0100 02000000 00160301 09070001 0301090b  ................
+ 0110 00010301 09020001 09020000 0101      ..............  
+Contents of section .debug_str:
+ 0000 6c6f6e67 206c6f6e 6720696e 7400756e  long long int.un
+ 0010 7369676e 65642069 6e740047 4e552043  signed int.GNU C
+ 0020 31312035 2e322e30 202d6d6c 6f6e6763  11 5.2.0 -mlongc
+ 0030 616c6c73 202d6767 6462202d 666e6f2d  alls -ggdb -fno-
+ 0040 636f6d6d 6f6e006c 6f6e6720 756e7369  common.long unsi
+ 0050 676e6564 20696e74 006c6f6e 67206c6f  gned int.long lo
+ 0060 6e672075 6e736967 6e656420 696e7400  ng unsigned int.
+ 0070 6c6f6361 6c5f6d61 696e0063 68617200  local_main.char.
+ 0080 2f6d6e74 2f646174 61332f6d 7973796e  /mnt/data3/mysyn
+ 0090 63746869 6e672f64 65762f6d 79476974  cthing/dev/myGit
+ 00a0 6875622f 65737033 322d656c 666c6f61  hub/esp32-elfloa
+ 00b0 6465722f 636f6d70 6f6e656e 74732f65  der/components/e
+ 00c0 6c666c6f 61646572 2f746573 7400756e  lfloader/test.un
+ 00d0 7369676e 65642063 68617200 5f5f696e  signed char.__in
+ 00e0 74707472 5f74006c 6f6e6720 696e7400  tptr_t.long int.
+ 00f0 73686f72 7420756e 7369676e 65642069  short unsigned i
+ 0100 6e740073 69676e65 64206368 61720070  nt.signed char.p
+ 0110 61796c6f 61642d73 72632f74 6573742d  ayload-src/test-
+ 0120 7072696e 74662d67 64622e63 00696e74  printf-gdb.c.int
+ 0130 7074725f 74006c6f 6e672064 6f75626c  ptr_t.long doubl
+ 0140 65007368 6f727420 696e7400 73697a65  e.short int.size
+ 0150 74797065 00                          type.           
+Contents of section .comment:
+ 0000 00474343 3a202863 726f7373 746f6f6c  .GCC: (crosstool
+ 0010 2d4e4720 63726f73 73746f6f 6c2d6e67  -NG crosstool-ng
+ 0020 2d312e32 322e302d 36312d67 61623833  -1.22.0-61-gab83
+ 0030 37356129 20352e32 2e3000             75a) 5.2.0.     
+Contents of section .xtensa.info:
+ 0000 0c000000 20000000 01000000 5874656e  .... .......Xten
+ 0010 73615f49 6e666f00 5553455f 4142534f  sa_Info.USE_ABSO
+ 0020 4c555445 5f4c4954 4552414c 533d300a  LUTE_LITERALS=0.
+ 0030 4142493d 300a0000                    ABI=0...        
+Contents of section .xt.lit:
+ 0000 00000000 08000000                    ........        
+Contents of section .xt.prop:
+ 0000 00000000 08000000 01000000 00000000  ................
+ 0010 00000000 04280000 00000000 16000000  .....(..........
+ 0020 02000000 16000000 00000000 08000000  ................
+ 0030 00000000 00000000 04280000           .........(..    
+
+Disassembly of section .literal:
+
+00000000 <.literal>:
+	...
+			0: R_XTENSA_32	.rodata
+			4: R_XTENSA_32	puts
+
+Disassembly of section .text:
+
+00000000 <local_main>:
+#include <stdio.h>
+#include <stdint.h>
+
+
+intptr_t local_main(intptr_t arg) {
+   0:	006136        	entry	a1, 48
+   3:	017d      	mov.n	a7, a1
+   5:	0729      	s32i.n	a2, a7, 0
+   7:	000021        	l32r	a2, fffc0008 <local_main+0xfffc0008>
+			7: R_XTENSA_SLOT0_OP	.literal
+   a:	02ad      	mov.n	a10, a2
+   c:	000081        	l32r	a8, fffc000c <local_main+0xfffc000c>
+			c: R_XTENSA_SLOT0_OP	.literal+0x4
+			c: R_XTENSA_ASM_EXPAND	puts
+    printf("Hello world!\n");
+   f:	0008e0        	callx8	a8
+  12:	020c      	movi.n	a2, 0
+  14:	f01d      	retw.n

@@ -1,0 +1,168 @@
+
+payload-build/test-printf-multiplefuncs.elf:     file format elf32-xtensa-le
+payload-build/test-printf-multiplefuncs.elf
+architecture: xtensa, flags 0x00000011:
+HAS_RELOC, HAS_SYMS
+start address 0x00000000
+
+Xtensa header:
+
+Machine     = Base
+Insn tables = true
+Literal tables = true
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .literal      00000014  00000000  00000000  00000034  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .text         0000005e  00000000  00000000  00000048  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  2 .rodata       00000031  00000000  00000000  000000a8  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .data         00000000  00000000  00000000  000000d9  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .bss          00000000  00000000  00000000  000000d9  2**0
+                  ALLOC
+  5 .comment      0000003b  00000000  00000000  000000d9  2**0
+                  CONTENTS, READONLY
+  6 .xtensa.info  00000038  00000000  00000000  00000114  2**0
+                  CONTENTS, READONLY
+  7 .xt.lit       00000008  00000000  00000000  0000014c  2**0
+                  CONTENTS, RELOC, READONLY
+  8 .xt.prop      000000a8  00000000  00000000  00000154  2**0
+                  CONTENTS, RELOC, READONLY
+SYMBOL TABLE:
+00000000 l    d  .literal	00000000 .literal
+00000000 l    d  .text	00000000 .text
+00000000 l    d  .rodata	00000000 .rodata
+00000000 l    d  .data	00000000 .data
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .xtensa.info	00000000 .xtensa.info
+00000000 l    d  .xt.lit	00000000 .xt.lit
+00000000 l    d  .xt.prop	00000000 .xt.prop
+00000000 l    df *ABS*	00000000 test-printf-multiplefuncs.c
+00000000         *UND*	00000000 puts
+00000018 g     F .text	00000016 local_main2
+00000048 g     F .text	00000016 local_main
+00000030 g     F .text	00000016 local_main3
+00000000 g     F .text	00000016 local_main1
+
+
+Contents of section .literal:
+ 0000 00000000 00000000 0c000000 18000000  ................
+ 0010 24000000                             $...            
+Contents of section .text:
+ 0000 3661007d 01290721 0000ad02 810000e0  6a.}.).!........
+ 0010 08000c02 1df00000 3661007d 01290721  ........6a.}.).!
+ 0020 0000ad02 810000e0 08000c02 1df00000  ................
+ 0030 3661007d 01290721 0000ad02 810000e0  6a.}.).!........
+ 0040 08000c02 1df00000 3661007d 01290721  ........6a.}.).!
+ 0050 0000ad02 810000e0 08000c02 1df0      ..............  
+Contents of section .rodata:
+ 0000 4f746865 72203121 00000000 4f746865  Other 1!....Othe
+ 0010 72203221 00000000 4f746865 72203321  r 2!....Other 3!
+ 0020 00000000 48656c6c 6f20776f 726c6421  ....Hello world!
+ 0030 00                                   .               
+Contents of section .comment:
+ 0000 00474343 3a202863 726f7373 746f6f6c  .GCC: (crosstool
+ 0010 2d4e4720 63726f73 73746f6f 6c2d6e67  -NG crosstool-ng
+ 0020 2d312e32 322e302d 36312d67 61623833  -1.22.0-61-gab83
+ 0030 37356129 20352e32 2e3000             75a) 5.2.0.     
+Contents of section .xtensa.info:
+ 0000 0c000000 20000000 01000000 5874656e  .... .......Xten
+ 0010 73615f49 6e666f00 5553455f 4142534f  sa_Info.USE_ABSO
+ 0020 4c555445 5f4c4954 4552414c 533d300a  LUTE_LITERALS=0.
+ 0030 4142493d 300a0000                    ABI=0...        
+Contents of section .xt.lit:
+ 0000 00000000 14000000                    ........        
+Contents of section .xt.prop:
+ 0000 00000000 14000000 01000000 00000000  ................
+ 0010 00000000 04280000 00000000 16000000  .....(..........
+ 0020 02000000 16000000 00000000 08280000  .............(..
+ 0030 18000000 16000000 02000000 2e000000  ................
+ 0040 00000000 08280000 30000000 16000000  .....(..0.......
+ 0050 02000000 46000000 00000000 08280000  ....F........(..
+ 0060 48000000 16000000 02000000 5e000000  H...........^...
+ 0070 00000000 08000000 00000000 00000000  ................
+ 0080 04280000 00000000 09000000 04280000  .(...........(..
+ 0090 0c000000 09000000 04280000 18000000  .........(......
+ 00a0 09000000 04280000                    .....(..        
+
+Disassembly of section .literal:
+
+00000000 <.literal>:
+	...
+			0: R_XTENSA_32	.rodata
+			4: R_XTENSA_32	puts
+   8:	000c      	movi.n	a0, 0
+			8: R_XTENSA_32	.rodata
+   a:	180000        	lsxp	f0, a0, a0
+			c: R_XTENSA_NONE	*ABS*
+			c: R_XTENSA_32	.rodata
+   d:	000000        	ill
+  10:	000024        	lsi	f2, a0, 0
+			10: R_XTENSA_NONE	*ABS*
+			10: R_XTENSA_32	.rodata
+	...
+
+Disassembly of section .text:
+
+00000000 <local_main1>:
+   0:	006136        	entry	a1, 48
+   3:	017d      	mov.n	a7, a1
+   5:	0729      	s32i.n	a2, a7, 0
+   7:	000021        	l32r	a2, fffc0008 <local_main+0xfffbffc0>
+			7: R_XTENSA_SLOT0_OP	.literal
+   a:	02ad      	mov.n	a10, a2
+   c:	000081        	l32r	a8, fffc000c <local_main+0xfffbffc4>
+			c: R_XTENSA_SLOT0_OP	.literal+0x4
+			c: R_XTENSA_ASM_EXPAND	puts
+   f:	0008e0        	callx8	a8
+  12:	020c      	movi.n	a2, 0
+  14:	f01d      	retw.n
+	...
+
+00000018 <local_main2>:
+  18:	006136        	entry	a1, 48
+  1b:	017d      	mov.n	a7, a1
+  1d:	0729      	s32i.n	a2, a7, 0
+  1f:	000021        	l32r	a2, fffc0020 <local_main+0xfffbffd8>
+			1f: R_XTENSA_SLOT0_OP	.literal+0x8
+  22:	02ad      	mov.n	a10, a2
+  24:	000081        	l32r	a8, fffc0024 <local_main+0xfffbffdc>
+			24: R_XTENSA_SLOT0_OP	.literal+0x4
+			24: R_XTENSA_ASM_EXPAND	puts
+  27:	0008e0        	callx8	a8
+  2a:	020c      	movi.n	a2, 0
+  2c:	f01d      	retw.n
+	...
+
+00000030 <local_main3>:
+  30:	006136        	entry	a1, 48
+  33:	017d      	mov.n	a7, a1
+  35:	0729      	s32i.n	a2, a7, 0
+  37:	000021        	l32r	a2, fffc0038 <local_main+0xfffbfff0>
+			37: R_XTENSA_SLOT0_OP	.literal+0xc
+  3a:	02ad      	mov.n	a10, a2
+  3c:	000081        	l32r	a8, fffc003c <local_main+0xfffbfff4>
+			3c: R_XTENSA_SLOT0_OP	.literal+0x4
+			3c: R_XTENSA_ASM_EXPAND	puts
+  3f:	0008e0        	callx8	a8
+  42:	020c      	movi.n	a2, 0
+  44:	f01d      	retw.n
+	...
+
+00000048 <local_main>:
+  48:	006136        	entry	a1, 48
+  4b:	017d      	mov.n	a7, a1
+  4d:	0729      	s32i.n	a2, a7, 0
+  4f:	000021        	l32r	a2, fffc0050 <local_main+0xfffc0008>
+			4f: R_XTENSA_SLOT0_OP	.literal+0x10
+  52:	02ad      	mov.n	a10, a2
+  54:	000081        	l32r	a8, fffc0054 <local_main+0xfffc000c>
+			54: R_XTENSA_SLOT0_OP	.literal+0x4
+			54: R_XTENSA_ASM_EXPAND	puts
+  57:	0008e0        	callx8	a8
+  5a:	020c      	movi.n	a2, 0
+  5c:	f01d      	retw.n

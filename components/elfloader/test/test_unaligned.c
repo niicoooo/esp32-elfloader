@@ -4,7 +4,7 @@
 #include "unaligned.h"
 
 
-TEST_CASE("unalignedSet8 & unalignedGet8", "[elfLoader-utils]") {
+TEST_CASE("unalignedSet8 & unalignedGet8", "[esp32-elfloader-utils]") {
     uint8_t c[128];
 
     memset(c, 0, 128);
