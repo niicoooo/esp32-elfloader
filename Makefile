@@ -4,11 +4,18 @@
 #
 
 PROJECT_NAME := app-loader
-COMPONENTSx= \
-	freertos esp32 newlib esptool_py log tcpip_adapter \
-	lwip main driver spi_flash nvs_flash vfs ethernet soc heap app_trace \
-	bootloader_support xtensa-debug-module wpa_supplicant \
-	mbedtls console mdns micro-ecc pthread \
-	elfloader
+#EXTRA_COMPONENT_DIRS += $(shell pwd)/../components/elfloader
+
+
+example: main/payload.h all
+
+example-payload/payload.elf:
+	echo Building payload...
+	env -i IDF_PATH=$(IDF_PATH) PATH=$(PATH) make -C example-payload
+	echo Building payload done
+
+main/payload.h: example-payload/payload.elf
+	xxd -i $< > $@
 	
+
 include $(IDF_PATH)/make/project.mk

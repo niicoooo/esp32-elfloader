@@ -45,13 +45,3 @@ ESP_LOGI(TAG, "Result: %i", r);
 elfLoaderFree(ctx);
 return 0;
 ```
-
-or
-
-```bash
-$ make && make flash && make monitor
-esp32> run 4
-Running: test_printf_longcall_elf(0x10)
-Hello world!
-Result: 0x0
-```

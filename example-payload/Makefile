@@ -3,11 +3,11 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := app-module
+PROJECT_NAME := payload
 
-module: module.elf module-readelf.txt module-objdump.txt 
+module: payload.elf payload-readelf.txt payload-objdump.txt 
 
-module.elf: component-main-build
+payload.elf: component-main-build
 	xtensa-esp32-elf-gcc -Wl,-r -nostartfiles -nodefaultlibs -nostdlib -g -o $@ -Lbuild/main -lmain -Wl,-e,local_main -Wl,-Tesp32.ld
 	xtensa-esp32-elf-strip --strip-unneeded $@
 	
@@ -20,4 +20,4 @@ module.elf: component-main-build
 include $(IDF_PATH)/make/project.mk
 
 clean:
-	rm -f module.elf module-readelf.txt module-objdump.txt  rm -rf build
+	rm -f payload.elf payload-readelf.txt payload-objdump.txt  rm -rf build
