@@ -465,6 +465,10 @@ ELFLoaderContext_t* elfLoaderInitLoadAndRelocate(LOADER_FD_T fd, const ELFLoader
                     if (sectHdr.sh_type != SHT_NOBITS) {
                         LOADER_GETDATA(ctx, sectHdr.sh_offset, section->data, sectHdr.sh_size);
                     }
+                    else
+                    {
+                        memset(section->data, 0, sectHdr.sh_size);
+                    }
                     if (strcmp(name, ".text") == 0) {
                         ctx->text = section->data;
                     }
